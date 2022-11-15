@@ -19,7 +19,7 @@
                         @endforelse
 
                     </div>
-                    {{-- centering the pagination --}}
+                    
                     <div class="d-flex my-5 justify-content-center">
                         {{ $posts->links() }}
                     </div>

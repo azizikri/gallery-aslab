@@ -56,7 +56,9 @@
 
                 </div>
 
-                {{ $posts->links() }}
+                <div class="d-flex my-5 justify-content-center">
+                    {{ $posts->links() }}
+                </div>
             </div>
 
         </div>
