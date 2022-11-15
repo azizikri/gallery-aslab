@@ -26,10 +26,10 @@
                             @endif
                         </div>
                         <div class="d-flex align-items-center my-3">
-                            <div class="mx-3">1 {{ str('post')->plural(1) }}</div>
+                            <div class="mx-3">1 {{ str('post')->plural($postCount) }}</div>
                         </div>
                         <div class="">
-                            <h6 class="text-truncate" style="max-width: 150px;">
+                            <h6>
                                 {{ $user->name }}
                             </h6>
                         </div>
@@ -41,10 +41,17 @@
             <h3 class="text-center">Posts</h3>
             <div class="container text-center">
                 <div class="row">
-                    <div class="col-4">
-                        <img src="https://avatars.dicebear.com/api/adventurer-neutral/$hashEmail.svg"
-                            class="img-thumbnail img-fluid" alt="...">
-                    </div>
+                    @forelse ($user->posts as $post)
+                        <div class="col-4">
+                            <a href="{{ route('posts.show', $post->id) }}">
+                                <img src="{{ $post->image() }}" class="img-thumbnail img-fluid" alt="...">
+                            </a>
+                        </div>
+                    @empty
+                        <div class="col-12">
+                            <p class="text-center">No posts yet</p>
+                        </div>
+                    @endforelse
 
                 </div>
             </div>
