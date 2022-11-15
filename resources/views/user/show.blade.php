@@ -42,7 +42,7 @@
             <h3 class="text-center">Posts</h3>
             <div class="container text-center">
                 <div class="row">
-                    @forelse ($user->posts as $post)
+                    @forelse ($posts as $post)
                         <div class="col-4">
                             <a href="{{ route('posts.show', $post->id) }}">
                                 <img src="{{ $post->image() }}" class="img-thumbnail img-fluid" alt="...">
@@ -55,6 +55,8 @@
                     @endforelse
 
                 </div>
+
+                {{ $posts->links() }}
             </div>
 
         </div>

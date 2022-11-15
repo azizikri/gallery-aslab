@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -16,7 +17,8 @@ class UserController extends Controller
     public function show(User $user)
     {
         $postCount = $user->posts->count();
-        return view('user.show', compact('user', 'postCount'));
+        $posts = $user->posts()->paginate(10);
+        return view('user.show', compact('user', 'postCount', 'posts'));
 
     }
 
@@ -61,6 +63,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('me', $user);
+
+        $user->posts->each(function ($post) {
+            Storage::delete($post->image);
+        });
 
         $user->delete();
 

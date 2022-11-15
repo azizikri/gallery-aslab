@@ -58,6 +58,11 @@
                 @empty
                     <h1 class="text-center">No Post Available</h1>
                 @endforelse
+
+                <div class="d-flex justify-content-center mt-3">
+                    {{ $posts->links() }}
+                </div>
+
             </div>
         </div>
     </div>
