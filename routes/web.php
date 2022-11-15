@@ -20,3 +20,6 @@ Auth::routes();
 Route::resource('users', App\Http\Controllers\UserController::class)->except(['index', 'create', 'store']);
 Route::resource('posts', App\Http\Controllers\PostController::class);
 
+//tags show
+Route::get('tags/{tag}', [App\Http\Controllers\TagController::class, 'show'])->name('tags.show');
+

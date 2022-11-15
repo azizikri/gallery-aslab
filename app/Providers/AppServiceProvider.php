@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         // pagination bootstrap
         \Illuminate\Pagination\Paginator::useBootstrap();
+
+        //disable lazy loading
+        Model::preventLazyLoading(! app()->isProduction());
     }
 }

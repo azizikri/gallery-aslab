@@ -26,6 +26,24 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="tags"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Tags') }}</label>
+
+                            <div class="col-md-6">
+                                <select name="tags[]" id="tags" class="form-control @error('tags') is-invalid @enderror" multiple>
+                                    @foreach ($tags as $tag)
+                                        <option value="{{ $tag['name'] }}" selected>{{ $tag['name'] }}</option>
+                                    @endforeach
+                                </select>
+
+                                @error('tags')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="row mb-3">
                             <label for="caption" class="col-md-4 col-form-label text-md-end">{{ __('Caption') }}</label>
@@ -57,3 +75,26 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- get bootstrap tags input cdn --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tags').tagsinput('items');
+        });
+    </script>
+@endpush
+@push('styles')
+    {{-- get bootstrap tags input cdn --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <style type="text/css">
+        .bootstrap-tagsinput .tag {
+          margin-right: 2px;
+          color: white !important;
+          background-color: #0d6efd;
+          padding: 0.2rem;
+        }
+      </style>
+@endpush

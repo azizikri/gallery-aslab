@@ -28,6 +28,8 @@ class PostRequest extends FormRequest
 
         return [
             'image' => [$when, 'image', 'mimes:png,jpg,webp,jpeg'],
+            'tags' => ['nullable', 'array'],
+            'tags.*' => ['string'],
             'caption' => ['nullable', 'string', 'max:255'],
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Post;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Storage;
@@ -32,10 +33,18 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $data = $request->validated();
+
         $data['user_id'] = auth()->id();
         $data['image'] = $request->file('image')->store('posts');
 
+        foreach ($data['tags'] as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+            $tags[] = $tag->id;
+        }
+
         $post = Post::create($data);
+
+        $post->tags()->attach($tags);
 
         return redirect()->route('posts.show', $post);
     }
@@ -61,7 +70,9 @@ class PostController extends Controller
     {
         $this->authorize('owner', $post);
 
-        return view('post.edit', compact('post'));
+        $tags = $post->tags->toArray();
+
+        return view('post.edit', compact('post', 'tags'));
     }
 
     /**
@@ -82,7 +93,14 @@ class PostController extends Controller
             $data['image'] = $request->file('image')->store('posts');
         }
 
+        foreach ($data['tags'] as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+            $tags[] = $tag->id;
+        }
+
         $post->update($data);
+
+        $post->tags()->sync($tags);
 
         return redirect()->route('posts.show', $post);
     }
