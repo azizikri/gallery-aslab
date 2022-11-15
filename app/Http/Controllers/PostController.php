@@ -100,6 +100,6 @@ class PostController extends Controller
         Storage::delete($post->image);
         $post->delete();
 
-        return redirect()->route('home');
+        return redirect()->route('users.show', auth()->user());
     }
 }
