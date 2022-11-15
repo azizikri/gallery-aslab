@@ -13,17 +13,18 @@
                             <h2 class="text-truncate" style="max-width: 150px;">
                                 {{ $user->username }}
                             </h2>
-                            @if ($user->username == auth()->user()->username)
-                                <a href="{{ route('users.edit', $user->username) }}"
-                                    class="mx-3 btn btn-outline-secondary">Edit
-                                    profile</a>
+                            @auth
+                        
+                                @if ($user->username == auth()->user()->username)
+                                    <a href="{{ route('users.edit', $user->username) }}"
+                                        class="mx-3 btn btn-outline-secondary">Edit
+                                        profile</a>
 
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#userSetting">
-                                    <em class="fa-solid fa-gear"></em>
-                                </button>
-                            @else
-                                <button type="button" class="mx-3 btn btn-primary">Follow</button>
-                            @endif
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#userSetting">
+                                        <em class="fa-solid fa-gear"></em>
+                                    </button>
+                                @endif
+                            @endauth
                         </div>
                         <div class="d-flex align-items-center my-3">
                             <div class="mx-3">1 {{ str('post')->plural($postCount) }}</div>
