@@ -30,7 +30,7 @@
                                     </div>
                                 @endcan
                             </div>
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <img src="{{ $post->image() }}" class="img-fluid img-thumbnail"
                                     alt="{{ $post->user->username }} post">
                             </div>
