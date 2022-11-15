@@ -14,7 +14,7 @@
                                 {{ $user->username }}
                             </h2>
                             @auth
-                        
+
                                 @if ($user->username == auth()->user()->username)
                                     <a href="{{ route('users.edit', $user->username) }}"
                                         class="mx-3 btn btn-outline-secondary">Edit
@@ -27,7 +27,7 @@
                             @endauth
                         </div>
                         <div class="d-flex align-items-center my-3">
-                            <div class="mx-3">1 {{ str('post')->plural($postCount) }}</div>
+                            <div class="mx-3">{{ $postCount }} {{ str('post')->plural($postCount) }}</div>
                         </div>
                         <div class="">
                             <h6>
